@@ -10,30 +10,27 @@ exports.seed = function (knex) {
       return knex("users").insert([
         // password
         {
-          username: "admin",
+          email: "admin@admin.dk",
           first_name: "Admin",
           last_name: "Admins",
           password:
             "$2b$10$G/v/MRwgMgOAtCUCQRKJTO8GRD/rKxyu61J5wfYimsHd0/FSxuVAq",
-          email: "admin@admin.dk",
           is_admin: "Y",
         },
         {
-          username: "powerUser",
+          email: "powern@power.dk",
           first_name: "User",
           last_name: "Power",
           password:
             "$2b$10$G/v/MRwgMgOAtCUCQRKJTO8GRD/rKxyu61J5wfYimsHd0/FSxuVAq",
-          email: "powern@power.dk",
           is_admin: "N",
         },
         {
-          username: "A",
+          email: "a@aa.dk",
           first_name: "A",
           last_name: "AA",
           password:
             "$2b$10$G/v/MRwgMgOAtCUCQRKJTO8GRD/rKxyu61J5wfYimsHd0/FSxuVAq",
-          email: "a@aa.dk",
           is_admin: "N",
         },
       ]);
@@ -41,7 +38,7 @@ exports.seed = function (knex) {
     .then((userId) => {
       return knex("items").insert([
         {
-          user_id: 14,
+          user_id: 17,
           item_1: "SQL",
           description_1: "I like SQL",
           item_2: "HTML",
@@ -50,7 +47,7 @@ exports.seed = function (knex) {
           description_3: "Never CSS again",
         },
         {
-          user_id: 15,
+          user_id: 18,
           item_1: "JavaScript",
           description_1: "JavaScript JavaScript JavaScript",
           item_2: "HTML",
@@ -59,7 +56,7 @@ exports.seed = function (knex) {
           description_3: "Node Node Node",
         },
         {
-          user_id: 16,
+          user_id: 19,
           item_1: "SQL",
           description_1: "SQL SQL SQL",
           item_2: "PHP",

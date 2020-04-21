@@ -2,12 +2,11 @@ exports.up = function (knex) {
   return knex.schema
     .createTable("users", (table) => {
       table.increments("id");
-      table.string("username").notNullable();
+      table.string("email").notNullable();
       table.string("first_name").notNullable();
       table.string("last_name").notNullable();
       table.string("password").notNullable();
-      table.string("email").notNullable();
-      table.boolean("is_admin");
+      table.boolean("is_admin").defaultTo("N");
       table.timestamp("created_at").defaultTo(knex.fn.now());
     })
     .createTable("items", (table) => {
@@ -22,7 +21,6 @@ exports.up = function (knex) {
       table
         .foreign("user_id")
         .references("users.id")
-        // .inTable("users")
         .onDelete("CASCADE")
         .onUpdate("CASCADE");
     });

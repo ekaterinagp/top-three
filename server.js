@@ -21,7 +21,9 @@ Model.knex(knex);
 //end database
 
 const usersRouter = require("./routes/api/users");
+const itemsRouter = require("./routes/api/items");
 app.use(usersRouter);
+app.use(itemsRouter);
 
 const server = app.listen(port, (error) => {
   if (error) {

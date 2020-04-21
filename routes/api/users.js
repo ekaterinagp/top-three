@@ -1,52 +1,77 @@
 const router = require("express").Router();
-
+const config = require("config");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const jwt = require("jsonwebtoken");
+const auth = require("../../middleware/auth");
 
 // const User = require("../models/User");
 const User = require("../../models/User");
 
+//@rout GET all users
+router.get("/", async (req, res) => {
+  const users = await User.query().select();
+  return res.status(200).send({ response: users });
+});
+
+// router.get("/", (req, res) => {
+//   Item.find()
+//     .sort({ date: -1 })
+//     .then((items) => res.json(items));
+// });
+
+//@route GET authentication of a user
 router.post("/users/login", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
     console.log(req.body);
 
-    const users = await User.query()
-      .select()
-      .where({ username: username })
-      .limit(1);
+    const users = await User.query().select().where({ email: email }).limit(1);
     const user = users[0];
 
     if (!user) {
-      return res.status(404).send({ response: "Wrong username" });
+      return res.status(404).send({ response: "User does not exist" });
     }
 
-    if (username && password) {
-      bcrypt.compare(password, user.password, (error, isSame) => {
-        if (error) {
-          return res.status(500).send({});
-        }
-        if (!isSame) {
-          return res
-            .status(404)
-            .send({ response: "wrong password", user: JSON.stringify(user) });
-        } else {
-          return res.status(200).send({ username: user.username });
-        }
+    if (email && password) {
+      bcrypt.compare(password, user.password).then((isMatch) => {
+        if (!isMatch)
+          return res.status(400).json({ message: "invalid credentials" });
+        jwt.sign(
+          { id: user.id },
+          config.get("jwtSecret"),
+          {
+            expiresIn: 3600,
+          },
+          (err, token) => {
+            if (err) throw err;
+            res.json({
+              token: token,
+              user: {
+                id: user.id,
+                email: user.email,
+              },
+            });
+          }
+        );
       });
-    } else {
-      return res.status(404).send({ response: "Missing username or password" });
     }
   } catch (error) {
-    console.log("my error");
     throw new Error(error);
   }
 });
 
 router.post("/users/register", (req, res) => {
-  const { username, password, repeatPassword } = req.body;
+  const { email, password, repeatPassword, firstName, lastName } = req.body;
   console.log(req.body);
-  if (username && password && repeatPassword && password === repeatPassword) {
+  if (
+    email &&
+    password &&
+    repeatPassword &&
+    firstName &&
+    lastName &&
+    password === repeatPassword
+  ) {
     if (password.length < 8) {
       return res
         .status(400)
@@ -54,23 +79,25 @@ router.post("/users/register", (req, res) => {
     } else {
       bcrypt.hash(password, saltRounds, async (error, hashedPassword) => {
         if (error) {
-          return res.status(500).send({});
+          return res.status(500).send({ message: "error hashing password" });
         }
         try {
           const existingUser = await User.query()
             .select()
-            .where({ username: username })
+            .where({ email: email })
             .limit(1);
 
           if (existingUser[0]) {
             return res.status(404).send({ response: "User already exists" });
           } else {
             const newUser = await User.query().insert({
-              username,
+              first_name: firstName,
+              last_name: lastName,
+              email,
               password: hashedPassword,
             });
 
-            return res.status(200).send({ username: newUser.username });
+            return res.status(200).send({ email: newUser.email });
           }
         } catch (error) {
           return res
