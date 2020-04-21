@@ -14,12 +14,6 @@ router.get("/", async (req, res) => {
   return res.status(200).send({ response: users });
 });
 
-// router.get("/", (req, res) => {
-//   Item.find()
-//     .sort({ date: -1 })
-//     .then((items) => res.json(items));
-// });
-
 //@route GET authentication of a user
 router.post("/users/login", async (req, res) => {
   try {
