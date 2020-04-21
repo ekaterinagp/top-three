@@ -27,7 +27,6 @@ exports.seed = function (knex) {
           email: "powern@power.dk",
           is_admin: "N",
         },
-        ,
         {
           username: "A",
           first_name: "A",
@@ -39,10 +38,10 @@ exports.seed = function (knex) {
         },
       ]);
     })
-    .then(() => {
+    .then((userId) => {
       return knex("items").insert([
         {
-          user_id: 1,
+          user_id: 14,
           item_1: "SQL",
           description_1: "I like SQL",
           item_2: "HTML",
@@ -51,7 +50,7 @@ exports.seed = function (knex) {
           description_3: "Never CSS again",
         },
         {
-          user_id: 2,
+          user_id: 15,
           item_1: "JavaScript",
           description_1: "JavaScript JavaScript JavaScript",
           item_2: "HTML",
@@ -60,7 +59,7 @@ exports.seed = function (knex) {
           description_3: "Node Node Node",
         },
         {
-          user_id: 3,
+          user_id: 16,
           item_1: "SQL",
           description_1: "SQL SQL SQL",
           item_2: "PHP",

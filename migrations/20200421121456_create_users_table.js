@@ -19,7 +19,12 @@ exports.up = function (knex) {
       table.string("item_3").notNullable();
       table.string("description_3").notNullable();
       table.integer("user_id").unsigned().notNullable();
-      table.foreign("user_id").references("users.id");
+      table
+        .foreign("user_id")
+        .references("users.id")
+        // .inTable("users")
+        .onDelete("CASCADE")
+        .onUpdate("CASCADE");
     });
 };
 

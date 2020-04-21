@@ -18,7 +18,10 @@ const knex = Knex(knexfile.development);
 // Give the knex instance to objection.
 Model.knex(knex);
 
-//end database0
+//end database
+
+const usersRouter = require("./routes/api/users");
+app.use(usersRouter);
 
 const server = app.listen(port, (error) => {
   if (error) {
