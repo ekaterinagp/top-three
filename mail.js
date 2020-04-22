@@ -34,8 +34,8 @@ const sendEmail = (to, name, type) => {
   const smtpTransport = mailer.createTransport({
     service: "Gmail",
     auth: {
-      user: "ooo12345atkea@gmail.com",
-      password: "Bjarne12345",
+      user: config.get("email"),
+      password: config.get("password"),
     },
   });
 

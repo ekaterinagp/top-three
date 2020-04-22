@@ -4,7 +4,7 @@
   "description": "React Node Express SQL ORM",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node .",
     "backend": "nodemon server.js",
     "frontend": "npm run front --prefix client",
     "dev": "concurrently \"npm run backend\"  \"npm run start --prefix client\"",
@@ -25,6 +25,7 @@
     "concurrently": "^5.1.0",
     "config": "^3.3.1",
     "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-rate-limit": "^5.1.1",
     "http-proxy-middleware": "^1.0.3",
