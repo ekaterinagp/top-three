@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import ArticleProvider from "./context/articleContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import "./App.css";
 import SendMail from "./components/SendMail";
@@ -9,14 +11,55 @@ import Articles from "./containers/Articles";
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        {" "}
+      <div className="navWrapper">
+        <Router basename={"/"}>
+          <nav>
+            <ul>
+              <li className="liMenu a">
+                <NavLink exact to={`/`} activeClassName="selectedLink">
+                  Home
+                </NavLink>
+              </li>
+              <li className="liMenu b">
+                <NavLink to={`/login`} activeClassName="selectedLink">
+                  Login
+                </NavLink>
+              </li>
+              <li className="liMenu c">
+                <NavLink to={`/send-mail`} activeClassName="selectedLink">
+                  Send mail
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+
+          <Switch>
+            <Route
+              path={`/login`}
+              // component={(state) => <Forecast {...this.state} />}
+            />
+            <Route
+              path={`/send-mail`}
+              component={(state) => <SendMail {...this.state} />}
+            />
+            <Route
+              exact
+              path={`/`}
+              // component={(props) => (
+              // <StartPage
+              //   {...this.state}
+              //   // isLoading={this.state.isLoading}
+              // />
+              // )}
+            />
+          </Switch>
+        </Router>
         <ArticleProvider>
           <AddArticle />
           <Articles />
         </ArticleProvider>
         <SendMail />
-      </Fragment>
+      </div>
     );
   }
 }
