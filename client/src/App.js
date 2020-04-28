@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import ArticleProvider from "./context/articleContext";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+import Navbar from "./components/AppNavBar";
 
 import "./App.css";
 import SendMail from "./components/SendMail";
@@ -12,6 +13,7 @@ class App extends Component {
   render() {
     return (
       <div className="navWrapper">
+        {/* <Navbar></Navbar> */}
         <Router basename={"/"}>
           <nav>
             <ul>
@@ -58,7 +60,7 @@ class App extends Component {
           <AddArticle />
           <Articles />
         </ArticleProvider>
-        <SendMail />
+        {/* <SendMail /> */}
       </div>
     );
   }

@@ -67,6 +67,7 @@ const authLimiter = rateLimit({
 
 app.use("/users/login", authLimiter);
 app.use("/users/register", authLimiter);
+app.use("/user", require("./routes/api/users"));
 
 const usersRouter = require("./routes/api/users");
 const itemsRouter = require("./routes/api/items");
@@ -74,39 +75,6 @@ const sendMailRouter = require("./routes/api/sendMail");
 app.use(usersRouter);
 app.use(itemsRouter);
 app.use(sendMailRouter);
-
-//send Mail
-
-// app.post("/send-email", (req, res) => {
-//   var data = req.body;
-//   console.log(req.body);
-//   var smtpTransport = nodemailer.createTransport({
-//     service: "Gmail",
-//     port: 465,
-//     auth: {
-//       user: config.get("email"),
-//       pass: config.get("password"),
-//     },
-//   });
-
-//   var mailOptions = {
-//     from: data.email,
-//     to: "ENTER_YOUR_EMAIL",
-//     subject: "ENTER_YOUR_SUBJECT",
-//     html: `<p>${data.name}</p>
-//           <p>${data.email}</p>
-//           <p>${data.message}</p>`,
-//   };
-
-//   smtpTransport.sendMail(mailOptions, (error, response) => {
-//     if (error) {
-//       res.send(error);
-//     } else {
-//       res.send("Success");
-//     }
-//     smtpTransport.close();
-//   });
-// });
 
 const server = app.listen(port, (error) => {
   if (error) {

@@ -14,7 +14,15 @@ router.get("/", async (req, res) => {
   return res.status(200).send({ response: users });
 });
 
-//@route GET authentication of a user
+router.get("/auth/user", auth, async (req, res) => {
+  const { email } = req.body;
+  console.log(req.body);
+  const user = await User.query().select().where({ email: email }).limit(1);
+  console.log(user);
+  return res.send(user);
+});
+
+//@route POST authentication of a user
 router.post("/users/login", async (req, res) => {
   try {
     const { email, password } = req.body;
