@@ -4,7 +4,7 @@ import { UserContext } from "../context/userContext";
 import axios from "axios";
 import SendEmail from "./SendMail";
 import ArticleProvider from "../context/articleContext";
-import AddArticle from "./AddArticle";
+// import AddArticle from "./AddArticle";
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = useState(false);

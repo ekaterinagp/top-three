@@ -27,11 +27,11 @@ export default function Articles() {
             }) => (
               <div className="article" key={`random-${id}`}>
                 <h1>{title}</h1>
-                <p>{item_1}</p>
+                <p>1. {item_1}</p>
                 <p>{description_1}</p>
-                <p>{item_2}</p>
+                <p>2. {item_2}</p>
                 <p>{description_2}</p>
-                <p>{item_3}</p>
+                <p>3. {item_3}</p>
                 <p>{description_3}</p>
               </div>
             )

@@ -8,7 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import SendMail from "./components/SendMail";
-import AddArticle from "./components/AddArticle";
+// import AddArticle from "./components/AddArticle";
 import ArticleProvider from "./context/articleContext";
 
 import "./App.css";
@@ -30,7 +30,7 @@ export default function App() {
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/sendMail" component={SendMail} />
-              <Route path="/addList" component={AddArticle} />
+              {/* <Route path="/addList" component={AddArticle} /> */}
             </Switch>
           </div>
         </UserContext.Provider>
