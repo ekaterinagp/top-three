@@ -7,6 +7,8 @@ import Error from "./Error";
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [firstName, setfirstName] = useState();
+  const [lastName, setlastName] = useState();
   const [error, setError] = useState("");
 
   const { setUserData } = useContext(UserContext);
@@ -15,7 +17,7 @@ export default function Login() {
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const loginData = { email, password };
+      const loginData = { email, password, firstName, lastName };
       const loginRes = await axios.post(
         "http://localhost:9090/login",
         loginData
@@ -24,6 +26,7 @@ export default function Login() {
         token: loginRes.data.token,
         user: loginRes.data.user,
       });
+      console.log(loginData);
       localStorage.setItem("auth-token", loginRes.data.token);
       history.push("/");
     } catch (error) {
@@ -36,7 +39,7 @@ export default function Login() {
       <h2>Log in</h2>
       {error && <Error error={error} clearError={() => setError("")} />}
       <form onSubmit={submit}>
-        <label htmlfor="login-email">Email</label>
+        <label htmlFor="login-email">Email</label>
         <input
           id="login-email"
           type="email"

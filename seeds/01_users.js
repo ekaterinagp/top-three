@@ -35,34 +35,57 @@ exports.seed = function (knex) {
         },
       ]);
     })
-    .then((userId) => {
+    .then(() => {
       return knex("items").insert([
         {
-          user_id: 17,
+          user_id: 1,
+          title: "My list",
           item_1: "SQL",
-          description_1: "I like SQL",
-          item_2: "HTML",
-          description_2: "HTML rules",
-          item_3: "No CSS",
-          description_3: "Never CSS again",
+          description_1:
+            "I want to master SQL and become database administrator",
+          item_2: "Surf",
+          description_2: "I want to catch a wave in Australia",
+          item_3: "Read",
+          description_3: "I want to read all the books in the world",
         },
         {
-          user_id: 18,
-          item_1: "JavaScript",
-          description_1: "JavaScript JavaScript JavaScript",
-          item_2: "HTML",
-          description_2: "HTML HTML HTML",
-          item_3: "Node",
-          description_3: "Node Node Node",
+          user_id: 2,
+          title: "Adventure list",
+          item_1: "Waterfall",
+          description_1: "Abseil down a waterfall",
+          item_2: "Danger",
+          description_2: "Air boat across an alligator  swamp",
+          item_3: "Zip line",
+          description_3: "Ride a zip line",
         },
         {
-          user_id: 19,
-          item_1: "SQL",
-          description_1: "SQL SQL SQL",
-          item_2: "PHP",
-          description_2: "PHP rules",
-          item_3: "CSS",
-          description_3: "CSS CSS CSS",
+          user_id: 3,
+          title: "List",
+          item_1: "Tattoo",
+          description_1: "Get a tattoo",
+          item_2: "Love elephants",
+          description_2: "Bathe an elephant",
+          item_3: "Nature",
+          description_3: "Feed a koala bear",
+        },
+      ]);
+    })
+    .then(() => {
+      return knex("comments").insert([
+        {
+          text: "Wow, I also want it",
+          user_id: 1,
+          items_id: 2,
+        },
+        {
+          text: "Elephants are gross",
+          user_id: 1,
+          items_id: 3,
+        },
+        {
+          text: "I also want a tattoo",
+          user_id: 2,
+          items_id: 3,
         },
       ]);
     });

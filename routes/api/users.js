@@ -5,13 +5,21 @@ const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const jwSecret = config.get("jwtSecret");
-// const User = require("../models/User");
+const knex = require("knex");
 const User = require("../../models/User");
 
 //@route GET all users
 router.get("/", async (req, res) => {
   const users = await User.query().select();
   return res.status(200).send({ response: users });
+});
+
+//@router GET one user by id + lists
+router.get("/user/:id", async (req, res) => {
+  const id = req.params.id;
+  const user = await User.query().where("id", id).withGraphFetched("items");
+
+  return res.status(200).send({ user });
 });
 
 //@route POST register user
@@ -99,6 +107,8 @@ router.post("/login", async (req, res) => {
               user: {
                 id: user.id,
                 email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
               },
             });
           }

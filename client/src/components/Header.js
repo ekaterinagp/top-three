@@ -50,9 +50,15 @@ export default function Header() {
           <button onClick={logOut}>Log out</button>
         ) : (
           <>
-            <Link onClick={register}>Register</Link>
-            <Link onClick={login}>Login</Link>
-            <Link onClick={sendMail}>Send Email </Link>
+            <Link to="/register" onClick={register}>
+              Register
+            </Link>
+            <Link to="/login" onClick={login}>
+              Login
+            </Link>
+            <Link to="/sendMail" onClick={sendMail}>
+              Send Email{" "}
+            </Link>
           </>
         )}
       </div>
