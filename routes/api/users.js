@@ -17,15 +17,15 @@ router.get("/", async (req, res) => {
 //@route POST register user
 
 router.post("/register", (req, res) => {
-  const { email, password, repeatPassword, firstName, lastName } = req.body;
+  const { email, password, passwordCheck, firstName, lastName } = req.body;
   console.log(req.body);
   if (
     email &&
     password &&
-    repeatPassword &&
+    passwordCheck &&
     firstName &&
     lastName &&
-    password === repeatPassword
+    password === passwordCheck
   ) {
     if (password.length < 8) {
       return res
@@ -59,7 +59,7 @@ router.post("/register", (req, res) => {
         }
       });
     }
-  } else if (password !== repeatPassword) {
+  } else if (password !== passwordCheck) {
     return res
       .status(404)
       .send({ response: "Password and repeated password are not the same" });
