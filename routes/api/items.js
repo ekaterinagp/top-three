@@ -25,31 +25,23 @@ router.post("/:id/list/add", async (req, res) => {
   const {
     title,
     item_1,
-    description_1,
+    // description_1,
     item_2,
-    description_2,
+    // description_2,
     item_3,
-    description_3,
+    // description_3,
   } = req.body;
   console.log(req.body);
-  if (
-    title &&
-    item_1 &&
-    description_1 &&
-    item_2 &&
-    description_2 &&
-    item_3 &&
-    description_3
-  ) {
-    console.log();
+  if (title && item_1 && item_2 && item_3) {
+    console.log("all fields there");
     if (
       title.length < 4 ||
       item_1.length < 2 ||
-      description_1.length < 4 ||
+      // description_1.length < 4 ||
       item_2.length < 2 ||
-      description_2.length < 4 ||
-      item_3.length < 2 ||
-      description_3.length < 4
+      // description_2.length < 4 ||
+      item_3.length < 2
+      // description_3.length < 4
     ) {
       return res.status(400).send({
         response:
@@ -57,14 +49,15 @@ router.post("/:id/list/add", async (req, res) => {
       });
     } else {
       try {
+        console.log("we are in a try");
         const newList = await Items.query().insert({
           title: title,
           item_1: item_1,
-          description_1: description_1,
+          // description_1: description_1,
           item_2: item_2,
-          description_2: description_2,
+          // description_2: description_2,
           item_3: item_3,
-          description_3: description_3,
+          // description_3: description_3,
           user_id: id,
         });
         return res.status(200).send({ title: newList.title });

@@ -14,28 +14,20 @@ export default function Articles() {
         "Loading..."
       ) : (
         <div>
-          {data.response.map(
-            ({
-              id,
-              title,
-              item_1,
-              description_1,
-              item_2,
-              description_2,
-              item_3,
-              description_3,
-            }) => (
-              <div className="article" key={`random-${id}`}>
-                <h1>{title}</h1>
-                <p>1. {item_1}</p>
-                <p>{description_1}</p>
-                <p>2. {item_2}</p>
-                <p>{description_2}</p>
-                <p>3. {item_3}</p>
-                <p>{description_3}</p>
-              </div>
-            )
-          )}
+          {data.response.map(({ id, title, item_1, // description_1,
+            item_2, // description_2,
+            item_3 }) => (
+            // description_3,
+            <div className="article" key={`random-${id}`}>
+              <h1>{title}</h1>
+              <p>1. {item_1}</p>
+              {/* <p>{description_1}</p> */}
+              <p>2. {item_2}</p>
+              {/* <p>{description_2}</p> */}
+              <p>3. {item_3}</p>
+              {/* <p>{description_3}</p> */}
+            </div>
+          ))}
         </div>
       )}
     </>

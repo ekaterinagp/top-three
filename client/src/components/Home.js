@@ -4,7 +4,7 @@ import axios from "axios";
 import { UserContext } from "../context/userContext";
 import Articles from "../containers/Articles";
 import { ArticleContext } from "../context/articleContext";
-// import AddArticle from "./AddArticle";
+import AddArticle from "./AddArticle";
 
 // import AllArticles from "./AllArticles";
 export default function Home() {
@@ -55,9 +55,9 @@ export default function Home() {
       {userData.user ? <h1>Welcome {userData.user.email}</h1> : <h2></h2>}
       {/* <ArticleContext.Provider> */}
       {userData.user ? (
-        // <AddArticle />
-        <h2>User is here</h2>
+        <AddArticle />
       ) : (
+        // <h2>User is here</h2>
         <h2>Please log in to add your list</h2>
       )}
       {/* <div>

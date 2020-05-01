@@ -29,6 +29,7 @@ export default function Login() {
       });
       console.log(loginRes);
       localStorage.setItem("auth-token", loginRes.data.token);
+      localStorage.setItem("id", loginRes.data.user.id);
       history.push("/");
     } catch (error) {
       error.response.data.msg && setError(error.response.data.msg);
