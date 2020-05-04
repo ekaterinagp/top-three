@@ -44,8 +44,10 @@ const usersRouter = require("./routes/api/users");
 
 const itemsRouter = require("./routes/api/items");
 const sendMailRouter = require("./routes/api/sendMail");
+const commentsRouter = require("./routes/api/comments");
 app.use(usersRouter, authLimiter);
 app.use(itemsRouter);
+app.use(commentsRouter);
 app.use(sendMailRouter);
 
 const server = app.listen(port, (error) => {

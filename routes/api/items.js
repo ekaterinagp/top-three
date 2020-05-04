@@ -11,10 +11,13 @@ router.get("/list", async (req, res) => {
   return res.status(200).send({ response: items });
 });
 
-//route GET list by id + user's name
+//route GET list by id + user's name+comments with names
 router.get("/list/:id", async (req, res) => {
-  const id = req.params.id;
-  let list = await Items.query().select().where({ user_id: id });
+  const listID = req.params.id;
+  let list = await Items.query()
+    .where({ id: listID })
+    .withGraphFetched("users")
+    .withGraphFetched("comments.[users]");
   return res.status(200).send({ response: list });
 });
 

@@ -1,6 +1,6 @@
 const { Model, ref } = require("objection");
 const Items = require("./Items");
-const Comments = require("./Comments");
+const Comments = require("./Comment");
 
 class User extends Model {
   static get tableName() {

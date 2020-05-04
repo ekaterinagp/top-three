@@ -10,6 +10,8 @@ module.exports = {
       database: credentials.database,
       user: credentials.user,
       password: credentials.password,
+      timezone: "UTC",
+      dateStrings: true,
     },
   },
 

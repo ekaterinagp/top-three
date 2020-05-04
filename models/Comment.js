@@ -1,27 +1,27 @@
-const { Model, ref } = require("objection");
+const { Model } = require("objection");
 
-class Items extends Model {
+class Comments extends Model {
   static get tableName() {
-    return "items";
+    return "comments";
   }
 
   static get relationMappings() {
-    const Comments = require("./Comment");
+    const Items = require("./Items");
     const User = require("./User");
     return {
-      comments: {
+      items: {
         relation: Model.HasManyRelation,
-        modelClass: Comments,
+        modelClass: Items,
         join: {
-          from: "items.id",
-          to: "comments.items_id",
+          from: "comments.user_id",
+          to: "items.user_id",
         },
       },
       users: {
         relation: Model.BelongsToOneRelation,
         modelClass: User,
         join: {
-          from: "items.user_id",
+          from: "comments.user_id",
           to: "users.id",
         },
       },
@@ -29,4 +29,4 @@ class Items extends Model {
   }
 }
 
-module.exports = Items;
+module.exports = Comments;
