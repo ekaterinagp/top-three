@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import SendMail from "./components/SendMail";
+import List from "./components/List";
 // import AddArticle from "./components/AddArticle";
 import ArticleProvider from "./context/articleContext";
 
@@ -30,6 +31,7 @@ export default function App() {
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/sendMail" component={SendMail} />
+              <Route exact path="/list/:listId" component={List} />
               {/* <Route path="/addList" component={AddArticle} /> */}
             </Switch>
           </div>

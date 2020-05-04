@@ -56,11 +56,11 @@ export default function Header() {
             <Link to="/login" onClick={login}>
               Login
             </Link>
-            <Link to="/sendMail" onClick={sendMail}>
-              Send Email{" "}
-            </Link>
           </>
         )}
+        <Link to="/sendMail" onClick={sendMail}>
+          Send Email{" "}
+        </Link>
       </div>
     </header>
   );
