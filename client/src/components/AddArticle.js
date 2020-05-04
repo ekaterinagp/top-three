@@ -65,70 +65,24 @@ const AddArticle = () => {
           placeholder="First item on your list"
           onChange={(e) => setItem1(e.target.value)}
         />
-        {/* <input
-          type="text"
-          id="description1"
-          placeholder="Tell more about it"
-          onChange={(e) => setDescription1(e.target.value)}
-        /> */}
+
         <input
           type="text"
           id="item_2"
           placeholder="Second item on your list"
           onChange={(e) => setItem2(e.target.value)}
         />
-        {/* <input
-          type="text"
-          id="description2"
-          placeholder="Tell more about it"
-          onChange={(e) => setDescription2(e.target.value)}
-        /> */}
+
         <input
           type="text"
           id="item_3"
           placeholder="Second item on your list"
           onChange={(e) => setItem3(e.target.value)}
         />
-        {/* <input
-          type="text"
-          id="description3"
-          placeholder="Tell more about it"
-          onChange={(e) => setDescription3(e.target.value)}
-        /> */}
 
         <button>Add article</button>
       </form>
     </div>
   );
-
-  // const { dispatch } = useContext(ArticleContext);
-  // const [article, setArticle] = useState();
-  // const handleArticleData = (e) => {
-  //   setArticle({
-  //     ...article,
-  //     [e.target.id]: e.target.value,
-  //   });
-  // };
-  // const addNewArticle = (e) => {
-  //   e.preventDefault();
-  //   dispatch({ type: "ADD_ARTICLE", article });
-  // };
-  // return (
-  //   <form onSubmit={addNewArticle} className="add-article">
-  //     <input
-  //       type="text"
-  //       id="title"
-  //       placeholder="Title"
-  //       onChange={handleArticleData}
-  //     />
-  //     <input
-  //       type="text"
-  //       id="body"
-  //       placeholder="Body"
-  //       onChange={handleArticleData}
-  //     />
-  //     <button>Add article</button>
-  //   </form>
-  // );
 };
 export default AddArticle;

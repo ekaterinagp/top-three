@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { ArticleContext } from "../context/articleContext";
 import "../App.css";
 import { useFetch } from "../context/Hooks";
-import history from "../context/history";
+
 import { Link } from "react-router-dom";
 
 export default function Articles() {

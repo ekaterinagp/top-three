@@ -12,12 +12,12 @@ router.get("/comments", async (req, res) => {
 });
 
 //router add comment
-router.post("/:id/comment/list/:listID/add", async (req, res) => {
+router.post("/:id/comment/list/:listID/", async (req, res) => {
   const id = req.params.id;
   const listID = req.params.listID;
   const { text } = req.body;
   console.log(req.body);
-  if (text.length > 3) {
+  if (text.length) {
     try {
       const newComment = await Comments.query().insert({
         text: text,
