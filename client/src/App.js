@@ -23,19 +23,20 @@ export default function App() {
   return (
     <>
       <BrowserRouter>
-        <UserContext.Provider value={{ userData, setUserData }}>
-          <Header />
-          <div className="container">
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-              <Route path="/sendMail" component={SendMail} />
-              <Route exact path="/list/:listId" component={SingleList} />
-              <Route path="/resetPassword" component={ResetPassword} />
-            </Switch>
-          </div>
-        </UserContext.Provider>
+        {/* <UserContext.Provider value={{ userData, setUserData }}> */}
+        <Header />
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/register" component={Register} />
+            <Route path="/login" component={Login} />
+
+            <Route path="/sendMail" component={SendMail} />
+            <Route exact path="/list/:listId" component={SingleList} />
+            <Route path="/resetPassword" component={ResetPassword} />
+          </Switch>
+        </div>
+        {/* </UserContext.Provider> */}
       </BrowserRouter>
     </>
   );

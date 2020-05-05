@@ -7,11 +7,13 @@ import Error from "./Error";
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  // const [firstName, setfirstName] = useState();
-  // const [lastName, setlastName] = useState();
+  const [user, setUser] = useState({
+    token: "",
+    user: "",
+  });
+
   const [error, setError] = useState("");
 
-  const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) => {
@@ -23,7 +25,7 @@ export default function Login() {
         loginData
       );
       console.log(loginRes);
-      setUserData({
+      setUser({
         token: loginRes.data.token,
         user: loginRes.data.user,
       });

@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { UserContext } from "../context/userContext";
+
 import axios from "axios";
-import SendEmail from "./SendMail";
-import ArticleProvider from "../context/articleContext";
-// import AddArticle from "./AddArticle";
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -14,27 +11,28 @@ export default function Header() {
   });
   const history = useHistory();
 
+  useEffect(() => console.log(userData), [userData]);
+  const checkUserLoggedIn = async () => {
+    if (token) {
+      const tokenRes = await axios.post(
+        "http://localhost:9090/tokenIsValid",
+
+        {
+          headers: {
+            "x-auth-token": token,
+          },
+        }
+      );
+      setLoggedIn(true);
+      console.log(tokenRes);
+    } else {
+      setLoggedIn(false);
+    }
+  };
+  const token = localStorage.getItem("auth-token");
   useEffect(() => {
-    const checkUserLoggedIn = async () => {
-      const token = localStorage.getItem("auth-token");
-      if (token) {
-        const tokenRes = await axios.post(
-          "http://localhost:9090/tokenIsValid",
-
-          null,
-
-          {
-            headers: {
-              "x-auth-token": token,
-            },
-          }
-        );
-        console.log(tokenRes);
-        setLoggedIn(true);
-      }
-    };
     checkUserLoggedIn();
-  }, [userData]);
+  }, []);
 
   const register = () => history.push("/register");
   const login = () => history.push("/login");
@@ -48,6 +46,9 @@ export default function Header() {
     });
     localStorage.setItem("auth-token", "");
     localStorage.setItem("id", "");
+    window.location.reload();
+    // checkUserLoggedIn();
+    // setLoggedIn(false);
   };
 
   return (
@@ -56,9 +57,10 @@ export default function Header() {
         <h1 className="title">Top three in your (bucket) list</h1>
       </Link>
       <div className="auth-options">
-        {loggedIn ? (
+        {token ? (
           <>
             <button onClick={logOut}>Log out</button>
+
             <Link to="/resetPassword" onClick={resetPassword}>
               Reset password
             </Link>
