@@ -28,11 +28,10 @@ const AddArticle = () => {
       const enteredData = {
         title,
         item_1,
-        // description1,
+
         item_2,
-        // description2,
+
         item_3,
-        // description3,
       };
 
       const addedDataRes = await axios.post(

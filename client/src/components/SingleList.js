@@ -1,14 +1,27 @@
-import React, { useParams, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useFetch } from "../context/Hooks";
 import AddComment from "./AddComment";
 
 export default function List({ match }) {
   let params = match.params;
   console.log(params);
-  const [data, loading] = useFetch(
-    `http://localhost:9090/list/${params.listId}`
-  );
-  console.log(data.response);
+  const [data, setData] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(`http://localhost:9090/list/${params.listId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+        setLoading(false);
+      });
+
+    // const [data, loading] = useFetch(
+    //   `http://localhost:9090/list/${params.listId}`
+    // );
+    console.log(data);
+  });
 
   return (
     <>
