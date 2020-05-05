@@ -96,12 +96,12 @@ export default function Header() {
                   Log in
                 </NavLink>
               </NavItem>
-
-              <NavItem>
-                <NavLink href="/sendMail/">Send Email</NavLink>
-              </NavItem>
             </>
           )}
+
+          <NavItem>
+            <NavLink href="/sendMail/">Send Email</NavLink>
+          </NavItem>
         </Nav>
       </Navbar>
     </div>

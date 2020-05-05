@@ -33,9 +33,11 @@ export default function SendEmail() {
   return (
     <div className="App">
       <header className="App-header">
-        <form onSubmit={handleSubmit}>
+        <form className="form-style-6" onSubmit={handleSubmit}>
+          <h2>Send email</h2>
           <input
             id="name"
+            type="text"
             placeholder="name"
             value={name}
             onChange={handleChange}
@@ -43,6 +45,7 @@ export default function SendEmail() {
           <br></br>
           <input
             id="email"
+            type="email"
             placeholder="email"
             value={email}
             onChange={handleChange}
@@ -58,7 +61,9 @@ export default function SendEmail() {
             value={message}
             required
           />
-          <button onClick={handleSubmit}>Send mail</button>
+          <button className="example_b" onClick={handleSubmit}>
+            Send mail
+          </button>
         </form>
       </header>
     </div>

@@ -42,41 +42,50 @@ export default function Register() {
   };
   return (
     <div className="page-form">
-      <h2>Register</h2>
       {error && <Error error={error} clearError={() => setError("")} />}
-      <form onSubmit={submit}>
+      <form className="form-style-6" onSubmit={submit}>
+        <h2 className="align">Register</h2>
         <label htmlFor="register-email">Email</label>
         <input
           id="register-email"
           type="email"
+          placeholder="Email"
           onChange={(e) => setEmail(e.target.value)}
         />
         <label htmlFor="register-firstName">First Name</label>
         <input
           id="register-firstName"
           type="text"
+          placeholder="First name"
           onChange={(e) => setfirstName(e.target.value)}
         />
         <label htmlFor="register-lastName">Last Name</label>
         <input
           id="register-lastName"
           type="text"
+          placeholder="Last name"
           onChange={(e) => setlastName(e.target.value)}
         />
 
         <label htmlFor="register-password">Password</label>
         <input
           id="register-password"
+          placeholder="Password"
           type="password"
           onChange={(e) => setPassword(e.target.value)}
         />
+        <label htmlFor="register-password">Repeat password</label>
         <input
           type="password"
-          placeholder="Confirm password"
+          placeholder="Repeat password"
           onChange={(e) => setPasswordCheck(e.target.value)}
         />
 
-        <input type="submit" value="Register" />
+        <input
+          // className="example_b"
+          type="submit"
+          value="Register"
+        />
       </form>
     </div>
   );

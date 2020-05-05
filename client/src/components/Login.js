@@ -42,7 +42,7 @@ export default function Login() {
 
   return (
     <div className="form-style-6">
-      <h2>Log in</h2>
+      <h2 className="align">Log in</h2>
       {/* {error && <Error error={error} clearError={() => setError("")} />} */}
 
       <form onSubmit={submit}>

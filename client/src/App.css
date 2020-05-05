@@ -108,6 +108,10 @@
   background: #2ebc99;
 }
 
+.align {
+  text-align: center;
+}
+
 .example_b {
   color: #fff !important;
   text-transform: uppercase;
@@ -119,6 +123,10 @@
   border: none;
   transition: all 0.4s ease 0s;
   margin: 1.5rem;
+}
+
+.reset {
+  margin-left: 6rem;
 }
 
 .example_b:hover {
@@ -143,6 +151,19 @@
   text-align: center;
 }
 
+.comment-btn {
+  text-align: center;
+  margin-left: 6rem;
+}
+
+.add-comment input {
+  padding: 20%;
+}
+
+.add-comment input::placeholder {
+  text-align: start;
+}
+
 .welcome-title {
   padding: 1rem;
   text-align: center;
@@ -154,5 +175,34 @@
 }
 
 .list-single {
-  padding-left: 20px;
+  padding: 2rem;
+}
+
+.div-comments,
+.add-comment {
+  padding: 2rem;
+}
+
+.single-comment {
+  border: 1px solid black;
+  padding: 2rem;
+}
+
+.comment-name {
+  text-transform: lowercase;
+}
+
+.comment-time {
+  text-transform: lowercase;
+  text-align: end;
+}
+
+.comment-div {
+  display: grid;
+  grid-template-columns: 2fr 2fr;
+}
+
+.p-3 {
+  position: absolute !important;
+  top: 0 !important;
 }

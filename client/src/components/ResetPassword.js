@@ -30,17 +30,20 @@ const ResetPassword = () => {
   return (
     <>
       <div>
-        <form onSubmit={changeCredentials} className="change-pass">
+        <form
+          onSubmit={changeCredentials}
+          className="change-pass form-style-6 "
+        >
           <input
             type="email"
             id="email"
-            placeholder="email"
+            placeholder="Email"
             onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             id="password"
-            placeholder="password"
+            placeholder="Password"
             onChange={(e) => setPassword(e.target.value)}
           />
 
@@ -51,7 +54,7 @@ const ResetPassword = () => {
             onChange={(e) => setNewPassword(e.target.value)}
           />
 
-          <button>Reset password</button>
+          <button className="example_b reset">Reset password</button>
         </form>
       </div>
     </>

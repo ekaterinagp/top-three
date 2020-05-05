@@ -42,15 +42,15 @@ const AddComment = (props) => {
   return (
     <div>
       {loggedIn ? (
-        <form onSubmit={addNewComment} className="add-comment">
-          <input
+        <form onSubmit={addNewComment} className="add-comment form-style-6">
+          <textarea
             type="text"
             id="text"
             value={text}
             placeholder="Text"
             onChange={(e) => setText(e.target.value)}
           />
-          <button>Add comment</button>
+          <button className="example_b comment-btn">Add comment</button>
         </form>
       ) : (
         <p>Only authorized users can leave comments</p>

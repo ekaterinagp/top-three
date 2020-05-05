@@ -79,15 +79,17 @@ export default function List({ match }) {
                   <p>3. {data.item_3}</p>
                 </div>
               </div>
-              <div>
+              <div className="div-comments">
                 <h2>Comments</h2>
                 {data.comments.map(({ id, text, users, time }) => (
                   <div key={id}>
-                    <p>{text}</p>
-                    <p>
-                      Written by {users.first_name} {users.last_name}
-                    </p>
-                    <p>Written time {time}</p>
+                    <div class="comment-div">
+                      <p className="comment-name">
+                        Written by {users.first_name} {users.last_name}
+                      </p>
+                      <p className="comment-time">Written time {time}</p>
+                    </div>
+                    <p className="single-comment">{text}</p>
                   </div>
                 ))}
               </div>
