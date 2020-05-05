@@ -10,9 +10,10 @@ import { useHistory } from "react-router-dom";
 
 const AddComment = (props) => {
   const [text, setText] = useState();
+
   // let params = match.params;
   console.log(props.listId);
-
+  const loggedIn = localStorage.getItem("id");
   const listId = props.listId;
 
   const addNewComment = async (e) => {
@@ -23,14 +24,16 @@ const AddComment = (props) => {
     try {
       setText("");
       const userid = localStorage.getItem("id");
-      const comment = { text };
-      const addedCommentRes = await axios.post(
-        `http://localhost:9090/${userid}/comment/list/${listId}`,
-        comment
-      );
-      console.log(addedCommentRes);
+      if (userid) {
+        const comment = { text };
+        const addedCommentRes = await axios.post(
+          `http://localhost:9090/${userid}/comment/list/${listId}`,
+          comment
+        );
+        console.log(addedCommentRes);
 
-      props.parentMethod();
+        props.parentMethod();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -38,16 +41,20 @@ const AddComment = (props) => {
 
   return (
     <div>
-      <form onSubmit={addNewComment} className="add-comment">
-        <input
-          type="text"
-          id="text"
-          value={text}
-          placeholder="Text"
-          onChange={(e) => setText(e.target.value)}
-        />
-        <button>Add comment</button>
-      </form>
+      {loggedIn ? (
+        <form onSubmit={addNewComment} className="add-comment">
+          <input
+            type="text"
+            id="text"
+            value={text}
+            placeholder="Text"
+            onChange={(e) => setText(e.target.value)}
+          />
+          <button>Add comment</button>
+        </form>
+      ) : (
+        <p>Only authorized users can leave comments</p>
+      )}
     </div>
   );
 };

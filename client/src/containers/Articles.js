@@ -8,13 +8,10 @@ import axios from "axios";
 
 export default function Articles() {
   const [data, setData] = useState();
-  // id: "",
-  // title: "",
-  // item_1: "",
-  // item_2: "",
-  // item_3: "",
+
   const [loading, setLoading] = useState(true);
-  // let articles;
+
+  let loggedIn = localStorage.getItem("id");
 
   useEffect(() => console.log(data), [data]);
 
@@ -44,9 +41,13 @@ export default function Articles() {
               <p>2. {item_2}</p>
 
               <p>3. {item_3}</p>
-              <Link to={`/list/${id}`}>
-                <button id={id}>Add/Read comment</button>
-              </Link>
+              {loggedIn ? (
+                <Link to={`/list/${id}`}>
+                  <button id={id}>Add/Read comment</button>
+                </Link>
+              ) : (
+                <p>Please log in to read/add comments</p>
+              )}
             </div>
           ))}
         </div>

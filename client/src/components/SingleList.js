@@ -24,6 +24,7 @@ export default function List({ match }) {
     comments: [],
   });
   const [loading, setLoading] = useState(true);
+  const [notAuth, setNotAuth] = useState(false);
 
   useEffect(() => console.log(data.title), [data.title]);
 
@@ -47,41 +48,52 @@ export default function List({ match }) {
     }
   };
   useEffect(() => {
-    fetchList();
+    if (localStorage.getItem("id")) {
+      fetchList();
+    } else {
+      setNotAuth(true);
+    }
+
     console.log(data.title);
   }, []);
 
   return (
     <>
-      <p>This is list # {params.listId}</p>
-      {loading ? (
-        "Loading..."
+      {notAuth ? (
+        <p>You should log in to read comments</p>
       ) : (
         <div>
-          <div key={`random-${data.id}`}>
-            <h1>{data.title}</h1>
+          <p>This is list # {params.listId}</p>
+          {loading ? (
+            "Loading..."
+          ) : (
+            <div>
+              <div key={`random-${data.id}`}>
+                <h1>{data.title}</h1>
 
-            <p>1. {data.item_1}</p>
+                <p>1. {data.item_1}</p>
 
-            <p>2. {data.item_2}</p>
+                <p>2. {data.item_2}</p>
 
-            <p>3. {data.item_3}</p>
-            <p> Written by {data.author}</p>
+                <p>3. {data.item_3}</p>
+                <p> Written by {data.author}</p>
 
-            <h2>Comments</h2>
-            {data.comments.map(({ id, text, users, time }) => (
-              <div key={id}>
-                <p>{text}</p>
-                <p>
-                  Written by {users.first_name} {users.last_name}
-                </p>
-                <p>Written time {time}</p>
+                <h2>Comments</h2>
+                {data.comments.map(({ id, text, users, time }) => (
+                  <div key={id}>
+                    <p>{text}</p>
+                    <p>
+                      Written by {users.first_name} {users.last_name}
+                    </p>
+                    <p>Written time {time}</p>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          )}
+          <AddComment listId={params.listId} parentMethod={fetchList} />.
         </div>
       )}
-      <AddComment listId={params.listId} parentMethod={fetchList} />.
     </>
   );
 }
