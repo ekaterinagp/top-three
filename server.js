@@ -1,6 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-// const cookieParser = require("cookie-parser");
+
 const cors = require("cors");
 const config = require("config");
 const path = require("path");
@@ -38,9 +38,6 @@ const authLimiter = rateLimit({
   max: 4, // limit each IP to 4 requests per windowMs
 });
 const usersRouter = require("./routes/api/users");
-// app.use(usersRouter, authLimiter);
-// app.use("/users/register", authLimiter);
-// app.use("/user", require("./routes/api/users"));
 
 const itemsRouter = require("./routes/api/items");
 const sendMailRouter = require("./routes/api/sendMail");

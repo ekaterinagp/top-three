@@ -23,12 +23,14 @@ export default function Home() {
       const res = await axios.get(`http://localhost:9090/user/${userId}`);
 
       console.log(res);
-      console.log(res.data.user[0].first_name);
-      setUserData({
-        name: res.data.user[0].first_name,
-        lastName: res.data.user[0].last_name,
-        email: res.data.user[0].email,
-      });
+      // console.log(res.data.user[0].first_name);
+      if (res.data.user.length) {
+        setUserData({
+          name: res.data.user[0].first_name,
+          lastName: res.data.user[0].last_name,
+          email: res.data.user[0].email,
+        });
+      }
     };
     fetchUser();
   }, []);

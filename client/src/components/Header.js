@@ -8,7 +8,7 @@ import ArticleProvider from "../context/articleContext";
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const { userData, setUserData } = useContext(UserContext);
+  const { userData, setUserData } = useState("");
   const history = useHistory();
 
   useEffect(() => {

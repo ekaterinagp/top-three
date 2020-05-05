@@ -11,8 +11,12 @@ export default function Register() {
   const [firstName, setfirstName] = useState();
   const [lastName, setlastName] = useState();
   const [error, setError] = useState("");
+  const [user, setUserData] = useState({
+    id: "",
+    token: "",
+  });
 
-  const { setUserData } = useContext(UserContext);
+  // const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) => {
@@ -26,9 +30,11 @@ export default function Register() {
       });
       setUserData({
         token: loginRes.data.token,
-        user: loginRes.data.user,
+        id: loginRes.data.user,
       });
+      console.log(user);
       localStorage.setItem("auth-token", loginRes.data.token);
+      localStorage.setItem("id", loginRes.data.user.id);
       history.push("/");
     } catch (error) {
       error.response.data.msg && setError(error.response.data.msg);
