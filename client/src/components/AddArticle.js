@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import "../css/Article.css";
 import axios from "axios";
+import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { ArticleContext } from "../context/articleContext";
 import Error from "./Error";
@@ -49,7 +50,7 @@ const AddArticle = () => {
 
   return (
     <div>
-      <form onSubmit={addNewArticle} className="add-article">
+      <form onSubmit={addNewArticle} className="form-style-6">
         <input
           type="text"
           id="title"
@@ -77,7 +78,9 @@ const AddArticle = () => {
           onChange={(e) => setItem3(e.target.value)}
         />
 
-        <button>Add article</button>
+        <Button size="lg" className="ml-5" color="primary">
+          Add your list
+        </Button>
       </form>
     </div>
   );

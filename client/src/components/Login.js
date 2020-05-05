@@ -1,8 +1,10 @@
 import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
+import "../App.css";
 import { UserContext } from "../context/userContext";
 import Error from "./Error";
+import { InputGroup, FormControl } from "reactstrap";
 
 export default function Login() {
   const [email, setEmail] = useState();
@@ -39,14 +41,16 @@ export default function Login() {
   };
 
   return (
-    <div className="page-form">
+    <div className="form-style-6">
       <h2>Log in</h2>
       {/* {error && <Error error={error} clearError={() => setError("")} />} */}
+
       <form onSubmit={submit}>
         <label htmlFor="login-email">Email</label>
         <input
           id="login-email"
           type="email"
+          name="field1"
           onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -54,6 +58,7 @@ export default function Login() {
         <input
           id="login-password"
           type="password"
+          name="field2"
           onChange={(e) => setPassword(e.target.value)}
         />
 

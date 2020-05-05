@@ -63,21 +63,23 @@ export default function List({ match }) {
         <p>You should log in to read comments</p>
       ) : (
         <div>
-          <p>This is list # {params.listId}</p>
+          {/* <p>This is list # {params.listId}</p> */}
           {loading ? (
             "Loading..."
           ) : (
             <div>
-              <div key={`random-${data.id}`}>
-                <h1>{data.title}</h1>
+              <div key={`random-${data.id}`} className="list-div">
+                <h1 className="title-list">{data.title}</h1>
+                <p className="p-center"> Written by {data.author}</p>
+                <div className="list-single">
+                  <p>1. {data.item_1}</p>
 
-                <p>1. {data.item_1}</p>
+                  <p>2. {data.item_2}</p>
 
-                <p>2. {data.item_2}</p>
-
-                <p>3. {data.item_3}</p>
-                <p> Written by {data.author}</p>
-
+                  <p>3. {data.item_3}</p>
+                </div>
+              </div>
+              <div>
                 <h2>Comments</h2>
                 {data.comments.map(({ id, text, users, time }) => (
                   <div key={id}>
@@ -91,7 +93,7 @@ export default function List({ match }) {
               </div>
             </div>
           )}
-          <AddComment listId={params.listId} parentMethod={fetchList} />.
+          <AddComment listId={params.listId} parentMethod={fetchList} />
         </div>
       )}
     </>

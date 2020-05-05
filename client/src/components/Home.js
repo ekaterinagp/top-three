@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Badge } from "reactstrap";
 
 import { UserContext } from "../context/userContext";
 import Articles from "../containers/Articles";
@@ -39,16 +40,22 @@ export default function Home() {
 
   return (
     <div className="page">
-      {userData.name ? (
-        <h1>
-          Welcome {userData.name} {userData.lastName}
-        </h1>
-      ) : (
-        <h2></h2>
-      )}
-
-      {userData.name ? <AddArticle /> : <h2>Please log in to add your list</h2>}
-
+      <div className="welcome">
+        {userData.name ? (
+          <>
+            <h2 className="welcome-title">
+              Welcome <br></br> {userData.name} {userData.lastName}
+            </h2>
+            <AddArticle />
+          </>
+        ) : (
+          <h3>
+            <Badge color="success" className="p-3">
+              Please log in to add your list and read comments
+            </Badge>
+          </h3>
+        )}
+      </div>
       <Articles />
     </div>
   );

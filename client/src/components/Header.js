@@ -2,8 +2,25 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import axios from "axios";
+import {
+  Collapse,
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  UncontrolledDropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+  NavbarText,
+  Button,
+} from "reactstrap";
 
 export default function Header() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggle = () => setIsOpen(!isOpen);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({
     token: "",
@@ -52,33 +69,72 @@ export default function Header() {
   };
 
   return (
-    <header className="header">
-      <Link to="/">
-        <h1 className="title">Top three in your (bucket) list</h1>
-      </Link>
-      <div className="auth-options">
-        {token ? (
-          <>
-            <button onClick={logOut}>Log out</button>
+    <div>
+      <Navbar color="dark" light expand="md" dark>
+        <NavbarBrand href="/">Top three in your (bucket) list</NavbarBrand>
+        <Nav className="mr-auto" navbar>
+          {token ? (
+            <>
+              <Button color="primary" onClick={logOut}>
+                Log out
+              </Button>
+              <NavItem>
+                <NavLink href="/resetPassword" onClick={resetPassword}>
+                  Reset password
+                </NavLink>
+              </NavItem>
+            </>
+          ) : (
+            <>
+              <NavItem>
+                <NavLink href="/register" onClick={register}>
+                  Register
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/login" onClick={login}>
+                  Log in
+                </NavLink>
+              </NavItem>
 
-            <Link to="/resetPassword" onClick={resetPassword}>
-              Reset password
-            </Link>
-          </>
-        ) : (
-          <>
-            <Link to="/register" onClick={register}>
-              Register
-            </Link>
-            <Link to="/login" onClick={login}>
-              Login
-            </Link>
-          </>
-        )}
-        <Link to="/sendMail" onClick={sendMail}>
-          Send Email{" "}
-        </Link>
-      </div>
-    </header>
+              <NavItem>
+                <NavLink href="/sendMail/">Send Email</NavLink>
+              </NavItem>
+            </>
+          )}
+        </Nav>
+      </Navbar>
+    </div>
+
+    // <header className="header">
+    //   <Link to="/">
+    //     <h1 className="title">Top three in your (bucket) list</h1>
+    //   </Link>
+    //   <div className="auth-options">
+    //     {
+    // token
+    // ? (
+    //       <>
+    //         <button onClick={logOut}>Log out</button>
+
+    //         <Link to="/resetPassword" onClick={resetPassword}>
+    //           Reset password
+    //         </Link>
+    //       </>
+    //     ) : (
+    //       <>
+    //         <Link to="/register" onClick={register}>
+    //           Register
+    //         </Link>
+    //         <Link to="/login" onClick={login}>
+    //           Login
+    //         </Link>
+    //       </>
+    //     )}
+    //     <Link to="/sendMail" onClick={sendMail}>
+    //       Send Email{" "}
+    //     </Link>
+    //   </div>
+    // </header>
   );
 }
