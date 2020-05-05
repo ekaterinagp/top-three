@@ -1,27 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { useFetch } from "../context/Hooks";
 import AddComment from "./AddComment";
+import axios from "axios";
 
 export default function List({ match }) {
   let params = match.params;
   console.log(params);
-  const [data, setData] = useState("");
+  const [data, setData] = useState({
+    id: "",
+    title: "",
+    item_1: "",
+    item_2: "",
+    item_3: "",
+    author: "",
+    comments: [],
+  });
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetch(`http://localhost:9090/list/${params.listId}`)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setData(data);
-        setLoading(false);
-      });
+  useEffect(() => console.log(data.title), [data.title]);
 
-    // const [data, loading] = useFetch(
-    //   `http://localhost:9090/list/${params.listId}`
-    // );
-    console.log(data);
-  });
+  useEffect(() => {
+    const fetchList = async (e) => {
+      const res = await axios.get(
+        `http://localhost:9090/list/${params.listId}`
+      );
+      setLoading(false);
+      console.log(res);
+      if (res.data.response.length) {
+        setData({
+          id: res.data.response.id,
+          title: res.data.response[0].title,
+          item_1: res.data.response[0].item_1,
+          item_2: res.data.response[0].item_2,
+          item_3: res.data.response[0].item_3,
+          author:
+            res.data.response[0].users.first_name +
+            " " +
+            res.data.response[0].users.last_name,
+          comments: res.data.response[0].comments,
+        });
+      }
+    };
+
+    fetchList();
+    console.log(data.title);
+  }, []);
 
   return (
     <>
@@ -30,21 +53,18 @@ export default function List({ match }) {
         "Loading..."
       ) : (
         <div>
-          <div key={`random-${data.response[0].id}`}>
-            <h1>{data.response[0].title}</h1>
-            <p>1. {data.response[0].item_1}</p>
+          <div key={`random-${data.id}`}>
+            <h1>{data.title}</h1>
 
-            <p>2. {data.response[0].item_2}</p>
+            <p>1. {data.item_1}</p>
 
-            <p>3. {data.response[0].item_3}</p>
-            <p>
-              {" "}
-              Written by {data.response[0].users.first_name}{" "}
-              {data.response[0].users.last_name}{" "}
-            </p>
+            <p>2. {data.item_2}</p>
+
+            <p>3. {data.item_3}</p>
+            <p> Written by {data.author}</p>
 
             <h2>Comments</h2>
-            {data.response[0].comments.map(({ id, text, users, time }) => (
+            {data.comments.map(({ id, text, users, time }) => (
               <div key={id}>
                 <p>{text}</p>
                 <p>
