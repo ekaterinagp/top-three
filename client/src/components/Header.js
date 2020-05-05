@@ -8,22 +8,27 @@ import ArticleProvider from "../context/articleContext";
 
 export default function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const { userData, setUserData } = useState("");
+  const [userData, setUserData] = useState({
+    token: "",
+    id: "",
+  });
   const history = useHistory();
 
   useEffect(() => {
     const checkUserLoggedIn = async () => {
       const token = localStorage.getItem("auth-token");
-      const tokenRes = await axios.post(
-        "http://localhost:9090/tokenIsValid",
-        null,
-        {
-          headers: {
-            "x-auth-token": token,
-          },
-        }
-      );
-      setLoggedIn(tokenRes.data);
+      if (token) {
+        const tokenRes = await axios.post(
+          "http://localhost:9090/tokenIsValid",
+          null,
+          {
+            headers: {
+              "x-auth-token": token,
+            },
+          }
+        );
+        setLoggedIn(true);
+      }
     };
     checkUserLoggedIn();
   }, [userData]);
@@ -35,9 +40,10 @@ export default function Header() {
   const logOut = () => {
     setUserData({
       token: undefined,
-      user: undefined,
+      id: undefined,
     });
     localStorage.setItem("auth-token", "");
+    localStorage.setItem("id", "");
   };
 
   return (

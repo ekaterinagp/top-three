@@ -5,13 +5,12 @@ const saltRounds = 10;
 const jwt = require("jsonwebtoken");
 const auth = require("../../middleware/auth");
 const jwSecret = config.get("jwtSecret");
-const knex = require("knex");
 const User = require("../../models/User");
 
 //@route GET all users
 router.get("/", async (req, res) => {
   const users = await User.query().select();
-  return res.status(200).send({ response: users });
+  return res.status(200).send({ res: users });
 });
 
 //@router GET one user by id + lists
@@ -38,7 +37,7 @@ router.post("/register", (req, res) => {
     if (password.length < 8) {
       return res
         .status(400)
-        .send({ response: "Password does not fulfill the requirements" });
+        .send({ res: "Password does not fulfill the requirements" });
     } else {
       bcrypt.hash(password, saltRounds, async (error, hashedPassword) => {
         if (error) {
@@ -51,7 +50,7 @@ router.post("/register", (req, res) => {
             .limit(1);
 
           if (existingUser[0]) {
-            return res.status(404).send({ response: "User already exists" });
+            return res.status(404).send({ res: "User already exists" });
           } else {
             const newUser = await User.query().insert({
               first_name: firstName,
@@ -63,16 +62,16 @@ router.post("/register", (req, res) => {
             return res.status(200).send({ email: newUser.email });
           }
         } catch (error) {
-          return res.status(500).send({ response: error.message });
+          return res.status(500).send({ res: error.message });
         }
       });
     }
   } else if (password !== passwordCheck) {
     return res
       .status(404)
-      .send({ response: "Password and repeated password are not the same" });
+      .send({ res: "Password and repeated password are not the same" });
   } else {
-    return res.status(404).send({ response: "Missing fields" });
+    return res.status(404).send({ res: "Missing fields" });
   }
 });
 
@@ -87,7 +86,7 @@ router.post("/login", async (req, res) => {
     const user = users[0];
 
     if (!user) {
-      return res.status(404).send({ response: "User does not exist" });
+      return res.status(404).send({ res: "User does not exist" });
     }
 
     if (email && password) {
@@ -117,6 +116,60 @@ router.post("/login", async (req, res) => {
     }
   } catch (error) {
     throw new Error(error);
+  }
+});
+
+router.post("/change-password/:id", async (req, res) => {
+  try {
+    const { email, password, newPassword } = req.body;
+    const userId = req.params.id;
+    const users = await User.query().select().where({ email: email }).limit(1);
+    const user = users[0];
+    if (!user) {
+      return res.status(404).send({ res: "User does not exist" });
+    }
+    if (email && password && newPassword) {
+      bcrypt.compare(password, user.password, function (err, hash) {
+        if (err) {
+          return res.status(400).json({ message: "invalid credentials" });
+        }
+        if (res) {
+          console.log("old password matched");
+          if (newPassword < 8) {
+            return res
+              .status(400)
+              .send({ res: "Password does not fulfill the requirements" });
+          } else {
+            console.log("new password will be hashed");
+            bcrypt.hash(
+              newPassword,
+              saltRounds,
+              async (error, hashedPassword) => {
+                console.log(hashedPassword);
+                if (error) {
+                  return res
+                    .status(500)
+                    .send({ message: "error hashing password" });
+                }
+                try {
+                  const updatedUser = await User.query()
+                    .update({ password: hashedPassword })
+                    .where("id", userId);
+                  console.log(updatedUser);
+                  return res.status(200).send({ updatedUser });
+                } catch (error) {
+                  return res.status(500).send({ res: error.message });
+                }
+              }
+            );
+          }
+        } else {
+          return res.send({ res: "old password didn't match" });
+        }
+      });
+    }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

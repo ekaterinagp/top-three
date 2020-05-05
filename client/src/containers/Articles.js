@@ -24,8 +24,6 @@ export default function Articles() {
       console.log(res);
       setData(res);
       setLoading(false);
-      // data = res.data.response;
-      // console.log(data);
     };
 
     fetchArticles();

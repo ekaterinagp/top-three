@@ -1,20 +1,27 @@
-import React, { useState, useContext } from "react";
+import React, {
+  useState,
+  forwardRef,
+  useRef,
+  useImperativeHandle,
+} from "react";
 import "../css/Article.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-const AddComment = (params) => {
+const AddComment = (props) => {
   const [text, setText] = useState();
   // let params = match.params;
-  console.log(params.listId);
+  console.log(props.listId);
 
-  const listId = params.listId;
+  const listId = props.listId;
 
   const addNewComment = async (e) => {
     console.log(localStorage.getItem("id"));
 
     e.preventDefault();
+    console.log({ text });
     try {
+      setText("");
       const userid = localStorage.getItem("id");
       const comment = { text };
       const addedCommentRes = await axios.post(
@@ -22,6 +29,8 @@ const AddComment = (params) => {
         comment
       );
       console.log(addedCommentRes);
+
+      props.parentMethod();
     } catch (error) {
       console.log(error);
     }
@@ -33,6 +42,7 @@ const AddComment = (params) => {
         <input
           type="text"
           id="text"
+          value={text}
           placeholder="Text"
           onChange={(e) => setText(e.target.value)}
         />
