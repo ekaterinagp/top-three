@@ -1,13 +1,36 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ArticleContext } from "../context/articleContext";
 import "../App.css";
 import { useFetch } from "../context/Hooks";
 
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Articles() {
-  const [data, loading] = useFetch("http://localhost:9090/list");
-  console.log(data.response);
+  const [data, setData] = useState();
+  // id: "",
+  // title: "",
+  // item_1: "",
+  // item_2: "",
+  // item_3: "",
+  const [loading, setLoading] = useState(true);
+  // let articles;
+
+  useEffect(() => console.log(data), [data]);
+
+  useEffect(() => {
+    const fetchArticles = async (e) => {
+      const res = await axios.get("http://localhost:9090/list");
+      console.log(res);
+      setData(res);
+      setLoading(false);
+      // data = res.data.response;
+      // console.log(data);
+    };
+
+    fetchArticles();
+  }, []);
+
   return (
     <>
       <h1>Lists</h1>
@@ -15,7 +38,7 @@ export default function Articles() {
         "Loading..."
       ) : (
         <div className="articleContainer">
-          {data.response.map(({ id, title, item_1, item_2, item_3 }) => (
+          {data.data.response.map(({ id, title, item_1, item_2, item_3 }) => (
             <div className="article" key={`random-${id}`}>
               <h1>{title}</h1>
               <p>1. {item_1}</p>
