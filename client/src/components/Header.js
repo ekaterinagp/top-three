@@ -20,13 +20,16 @@ export default function Header() {
       if (token) {
         const tokenRes = await axios.post(
           "http://localhost:9090/tokenIsValid",
+
           null,
+
           {
             headers: {
               "x-auth-token": token,
             },
           }
         );
+        console.log(tokenRes);
         setLoggedIn(true);
       }
     };
@@ -36,6 +39,7 @@ export default function Header() {
   const register = () => history.push("/register");
   const login = () => history.push("/login");
   const sendMail = () => history.push("/sendMail");
+  const resetPassword = () => history.push("/resetPassword");
 
   const logOut = () => {
     setUserData({
@@ -53,7 +57,12 @@ export default function Header() {
       </Link>
       <div className="auth-options">
         {loggedIn ? (
-          <button onClick={logOut}>Log out</button>
+          <>
+            <button onClick={logOut}>Log out</button>
+            <Link to="/resetPassword" onClick={resetPassword}>
+              Reset password
+            </Link>
+          </>
         ) : (
           <>
             <Link to="/register" onClick={register}>

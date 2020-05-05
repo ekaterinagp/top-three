@@ -10,11 +10,9 @@ const AddArticle = () => {
   const [item_1, setItem1] = useState();
   const [item_2, setItem2] = useState();
   const [item_3, setItem3] = useState();
-  // const [description1, setDescription1] = useState();
-  // const [description2, setDescription2] = useState();
-  // const [description3, setDescription3] = useState();
+
   const [error, setError] = useState("");
-  // const { setArticleDetails } = useContext(ArticleContext);
+
   const history = useHistory();
 
   const addNewArticle = async (e) => {

@@ -9,6 +9,7 @@ import Register from "./components/Register";
 import Home from "./components/Home";
 import SendMail from "./components/SendMail";
 import SingleList from "./components/SingleList";
+import ResetPassword from "./components/ResetPassword";
 // import AddArticle from "./components/AddArticle";
 
 import "./App.css";
@@ -31,7 +32,7 @@ export default function App() {
               <Route path="/login" component={Login} />
               <Route path="/sendMail" component={SendMail} />
               <Route exact path="/list/:listId" component={SingleList} />
-              {/* <Route path="/addList" component={AddArticle} /> */}
+              <Route path="/resetPassword" component={ResetPassword} />
             </Switch>
           </div>
         </UserContext.Provider>
