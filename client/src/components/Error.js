@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Error(props) {
+export default function ErrorNotice(props) {
   return (
     <div className="errorNotice">
       <span>{props.error}</span>

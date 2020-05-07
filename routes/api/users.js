@@ -86,13 +86,15 @@ router.post("/login", async (req, res) => {
     const user = users[0];
 
     if (!user) {
-      return res.status(404).send({ res: "User does not exist" });
+      return res
+        .status(404)
+        .send({ message: "User with this email does not exist" });
     }
 
     if (email && password) {
       bcrypt.compare(password, user.password).then((isMatch) => {
         if (!isMatch)
-          return res.status(400).json({ message: "invalid credentials" });
+          return res.status(400).json({ message: "Wrong password" });
         jwt.sign(
           { id: user.id },
           config.get("jwtSecret"),
@@ -126,12 +128,14 @@ router.post("/change-password/:id", async (req, res) => {
     const users = await User.query().select().where({ email: email }).limit(1);
     const user = users[0];
     if (!user) {
-      return res.status(404).send({ res: "User does not exist" });
+      return res
+        .status(404)
+        .send({ res: "User with this email does not exist" });
     }
     if (email && password && newPassword) {
       bcrypt.compare(password, user.password, function (err, hash) {
         if (err) {
-          return res.status(400).json({ message: "invalid credentials" });
+          return res.status(400).json({ message: "Wrong password" });
         }
         if (res) {
           console.log("old password matched");
@@ -182,16 +186,6 @@ router.delete("/delete", auth, async (req, res) => {
   }
 });
 
-// router.delete("/delete", auth, async (req, res) => {
-//   try {
-//     console.log(req.body);
-//     // const deletedUser = await User.findByIdAndDelete(req.user);
-//     res.json(deletedUser);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// });
-
 router.post("/tokenIsValid", async (req, res) => {
   try {
     const token = req.header("x-auth-token");
@@ -210,12 +204,5 @@ router.post("/tokenIsValid", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-// router.get("/auth", auth, async (req, res) => {
-//   const { email } = req.body;
-//   console.log(req.body);
-//   const user = await User.query().select().where({ email: email }).limit(1);
-//   console.log(user);
-//   return res.send(user);
-// });
 
 module.exports = router;

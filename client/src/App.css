@@ -204,5 +204,20 @@
 
 .p-3 {
   position: absolute !important;
-  top: 0 !important;
+  left: 9rem !important;
+  margin-top: 2rem !important;
+}
+
+.badge {
+  display: initial !important;
+}
+
+.errorNotice {
+  text-align: center;
+  color: red;
+  padding: 10px;
+}
+
+.errorNotice button {
+  margin: 10px;
 }

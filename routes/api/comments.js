@@ -30,7 +30,7 @@ router.post("/:id/comment/list/:listID/", async (req, res) => {
     }
   } else {
     return res.status(400).send({
-      response: "comment should be more than 3 charcaters",
+      response: "Comment should be more than 3 charcaters",
     });
   }
 });

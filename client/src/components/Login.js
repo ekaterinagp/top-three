@@ -5,16 +5,16 @@ import "../App.css";
 import { UserContext } from "../context/userContext";
 import Error from "./Error";
 import { InputGroup, FormControl } from "reactstrap";
+import { ConstraintViolationError } from "objection";
 
 export default function Login() {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [error, setError] = useState("");
   const [user, setUser] = useState({
     token: "",
     user: "",
   });
-
-  const [error, setError] = useState("");
 
   const history = useHistory();
 
@@ -36,14 +36,16 @@ export default function Login() {
       localStorage.setItem("id", loginRes.data.user.id);
       history.push("/");
     } catch (error) {
-      error.response.data.msg && setError(error.response.data.msg);
+      error.response.data.message && setError(error.response.data.message);
+      console.log(error.response.data.message);
     }
   };
 
   return (
     <div className="form-style-6">
       <h2 className="align">Log in</h2>
-      {/* {error && <Error error={error} clearError={() => setError("")} />} */}
+      {error && <Error error={error} clearError={() => setError("")} />}
+      {/* {error ? <Error error={error} /> : ""} */}
 
       <form onSubmit={submit}>
         <label htmlFor="login-email">Email</label>

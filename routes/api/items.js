@@ -40,15 +40,11 @@ router.post("/:id/list/add", async (req, res) => {
     if (
       title.length < 4 ||
       item_1.length < 2 ||
-      // description_1.length < 4 ||
       item_2.length < 2 ||
-      // description_2.length < 4 ||
       item_3.length < 2
-      // description_3.length < 4
     ) {
       return res.status(400).send({
-        response:
-          "Title should be min 4 char, items min 2 char, description min 4 char",
+        response: "Title should be min 4 char, items min 2 char",
       });
     } else {
       try {
@@ -56,11 +52,11 @@ router.post("/:id/list/add", async (req, res) => {
         const newList = await Items.query().insert({
           title: title,
           item_1: item_1,
-          // description_1: description_1,
+
           item_2: item_2,
-          // description_2: description_2,
+
           item_3: item_3,
-          // description_3: description_3,
+
           user_id: id,
         });
         return res.status(200).send({ title: newList.title });
@@ -69,7 +65,9 @@ router.post("/:id/list/add", async (req, res) => {
       }
     }
   } else {
-    return res.status(500).send({ response: "fields are not filled correct" });
+    return res
+      .status(500)
+      .send({ response: "Fields are not filled correctly" });
   }
 });
 
