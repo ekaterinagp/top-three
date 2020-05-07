@@ -45,7 +45,6 @@ export default function Login() {
     <div className="form-style-6">
       <h2 className="align">Log in</h2>
       {error && <Error error={error} clearError={() => setError("")} />}
-      {/* {error ? <Error error={error} /> : ""} */}
 
       <form onSubmit={submit}>
         <label htmlFor="login-email">Email</label>

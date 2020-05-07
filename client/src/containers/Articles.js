@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { ArticleContext } from "../context/articleContext";
+import AppContext from "../components/Home";
 import "../App.css";
 import { useFetch } from "../context/Hooks";
 import { Badge } from "reactstrap";
@@ -7,7 +7,8 @@ import { Badge } from "reactstrap";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-export default function Articles() {
+export default function Articles(props) {
+  // const { state, dispatch } = useContext(AppContext);
   const [data, setData] = useState();
 
   const [loading, setLoading] = useState(true);
@@ -16,15 +17,16 @@ export default function Articles() {
 
   useEffect(() => console.log(data), [data]);
 
-  useEffect(() => {
-    const fetchArticles = async (e) => {
-      const res = await axios.get("http://localhost:9090/list");
-      console.log(res);
-      setData(res);
-      setLoading(false);
-    };
+  const getArticles = async (e) => {
+    const articles = props.articles;
 
-    fetchArticles();
+    setData(articles);
+    setLoading(false);
+    console.log(articles);
+  };
+
+  useEffect(() => {
+    getArticles();
   }, []);
 
   return (
@@ -33,7 +35,7 @@ export default function Articles() {
         "Loading..."
       ) : (
         <div className="articleContainer">
-          {data.data.response.map(({ id, title, item_1, item_2, item_3 }) => (
+          {data.articles.map(({ id, title, item_1, item_2, item_3 }) => (
             <div className="article" key={`random-${id}`}>
               <h2 className="list-title">{title}</h2>
               <p>1. {item_1}</p>

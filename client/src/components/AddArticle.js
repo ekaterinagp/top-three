@@ -5,8 +5,10 @@ import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
 import { ArticleContext } from "../context/articleContext";
 import Error from "./Error";
+import AppContext from "./Home";
 
-const AddArticle = () => {
+const AddArticle = (props) => {
+  // const { state, dispatch } = useContext(AppContext);
   const [title, setTitle] = useState();
   const [item_1, setItem1] = useState();
   const [item_2, setItem2] = useState();
@@ -22,7 +24,14 @@ const AddArticle = () => {
 
     e.preventDefault();
     try {
+      console.log(title, item_1, item_2);
+      setTitle("");
+      setItem1("");
+      setItem2("");
+      setItem3("");
+      console.log(title, item_1, item_2);
       const id = localStorage.getItem("id");
+
       console.log(id);
       const enteredData = {
         title,
@@ -37,28 +46,30 @@ const AddArticle = () => {
         `http://localhost:9090/${id}/list/add`,
         enteredData
       );
-      console.log(addedDataRes);
-      // setArticleDetails({
-      //   title: enteredData.title,
-      // });
-      // history.push("/");
+      console.log({ addedDataRes });
+      console.log("now it is time to call fetch from parent");
+
+      props.parentMethod();
     } catch (error) {
-      console.log(error);
-      // error.response.data.msg && setError(error.response.data.msg);
+      error.response.data.message && setError(error.response.data.message);
+      console.log(error.response.data.message);
     }
   };
 
   return (
     <div>
       <form onSubmit={addNewArticle} className="form-style-6">
+        {error && <Error error={error} clearError={() => setError("")} />}
         <input
           type="text"
+          value={title}
           id="title"
           placeholder="Title"
           onChange={(e) => setTitle(e.target.value)}
         />
         <input
           type="text"
+          value={item_1}
           id="item_1"
           placeholder="First item on your list"
           onChange={(e) => setItem1(e.target.value)}
@@ -66,6 +77,7 @@ const AddArticle = () => {
 
         <input
           type="text"
+          value={item_2}
           id="item_2"
           placeholder="Second item on your list"
           onChange={(e) => setItem2(e.target.value)}
@@ -74,7 +86,8 @@ const AddArticle = () => {
         <input
           type="text"
           id="item_3"
-          placeholder="Second item on your list"
+          value={item_3}
+          placeholder="Third item on your list"
           onChange={(e) => setItem3(e.target.value)}
         />
 
