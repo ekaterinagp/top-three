@@ -3,12 +3,9 @@ import "../css/Article.css";
 import axios from "axios";
 import { Button } from "reactstrap";
 import { useHistory } from "react-router-dom";
-import { ArticleContext } from "../context/articleContext";
 import Error from "./Error";
-import AppContext from "./Home";
 
-const AddArticle = (props) => {
-  // const { state, dispatch } = useContext(AppContext);
+const AddList = (props) => {
   const [title, setTitle] = useState();
   const [item_1, setItem1] = useState();
   const [item_2, setItem2] = useState();
@@ -18,9 +15,8 @@ const AddArticle = (props) => {
 
   const history = useHistory();
 
-  const addNewArticle = async (e) => {
+  const addNewList = async (e) => {
     console.log(localStorage.getItem("id"));
-    console.log("we are in add article");
 
     e.preventDefault();
     try {
@@ -47,7 +43,6 @@ const AddArticle = (props) => {
         enteredData
       );
       console.log({ addedDataRes });
-      console.log("now it is time to call fetch from parent");
 
       props.parentMethod();
     } catch (error) {
@@ -58,7 +53,7 @@ const AddArticle = (props) => {
 
   return (
     <div>
-      <form onSubmit={addNewArticle} className="form-style-6">
+      <form onSubmit={addNewList} className="form-style-6">
         {error && <Error error={error} clearError={() => setError("")} />}
         <input
           type="text"
@@ -98,4 +93,4 @@ const AddArticle = (props) => {
     </div>
   );
 };
-export default AddArticle;
+export default AddList;

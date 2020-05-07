@@ -4,7 +4,7 @@ const Thanks = (data) => {
    <html style="margin: 0; padding: 0;">
    
        <head>
-           <title>Thanks</title>
+           <title>Thanks, that was very nice</title>
        </head>
    
            <body style="margin: 0; padding: 0;">

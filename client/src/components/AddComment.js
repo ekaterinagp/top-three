@@ -1,17 +1,9 @@
-import React, {
-  useState,
-  forwardRef,
-  useRef,
-  useImperativeHandle,
-} from "react";
+import React, { useState } from "react";
 import "../css/Article.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
 
 const AddComment = (props) => {
   const [text, setText] = useState();
-
-  // let params = match.params;
   console.log(props.listId);
   const loggedIn = localStorage.getItem("id");
   const listId = props.listId;
@@ -31,7 +23,6 @@ const AddComment = (props) => {
           comment
         );
         console.log(addedCommentRes);
-
         props.parentMethod();
       }
     } catch (error) {

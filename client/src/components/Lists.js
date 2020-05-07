@@ -1,14 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
-import AppContext from "../components/Home";
+import React, { useState, useEffect } from "react";
 import "../App.css";
-import { useFetch } from "../context/Hooks";
 import { Badge } from "reactstrap";
-
 import { Link } from "react-router-dom";
-import axios from "axios";
 
-export default function Articles(props) {
-  // const { state, dispatch } = useContext(AppContext);
+export default function Lists(props) {
   const [data, setData] = useState();
 
   const [loading, setLoading] = useState(true);
@@ -17,25 +12,25 @@ export default function Articles(props) {
 
   useEffect(() => console.log(data), [data]);
 
-  const getArticles = async (e) => {
-    const articles = props.articles;
+  const getLists = async (e) => {
+    const lists = props.lists;
 
-    setData(articles);
+    setData(lists);
     setLoading(false);
-    console.log(articles);
+    console.log(lists);
   };
 
   useEffect(() => {
-    getArticles();
+    getLists();
   }, []);
 
   return (
     <>
       {loading ? (
-        "Loading..."
+        <p className="loading">Loading...</p>
       ) : (
         <div className="articleContainer">
-          {data.articles.map(({ id, title, item_1, item_2, item_3 }) => (
+          {data.lists.map(({ id, title, item_1, item_2, item_3 }) => (
             <div className="article" key={`random-${id}`}>
               <h2 className="list-title">{title}</h2>
               <p>1. {item_1}</p>

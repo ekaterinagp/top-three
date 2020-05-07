@@ -23,7 +23,8 @@ const ResetPassword = () => {
       console.log(newPasswordAdded);
       history.push("/");
     } catch (error) {
-      error.response.data.msg && setError(error.response.data.msg);
+      error.response.data.message && setError(error.response.data.message);
+      console.log(error.response.data.message);
     }
   };
 
@@ -34,6 +35,7 @@ const ResetPassword = () => {
           onSubmit={changeCredentials}
           className="change-pass form-style-6 "
         >
+          {error && <Error error={error} clearError={() => setError("")} />}
           <input
             type="email"
             id="email"

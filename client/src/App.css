@@ -223,3 +223,16 @@
 .errorNotice button {
   margin: 10px;
 }
+
+.is-active {
+  color: red;
+}
+
+.loading {
+  font-size: Xx-large;
+  font-weight: bold;
+  margin: auto;
+  width: 50%;
+  color: blue;
+  padding-top: 100px;
+}

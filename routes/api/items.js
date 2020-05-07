@@ -21,19 +21,10 @@ router.get("/list/:id", async (req, res) => {
   return res.status(200).send({ response: list });
 });
 
-//route POST add a list ADD auth later!!!
 router.post("/:id/list/add", async (req, res) => {
   const id = req.params.id;
   console.log(id);
-  const {
-    title,
-    item_1,
-    // description_1,
-    item_2,
-    // description_2,
-    item_3,
-    // description_3,
-  } = req.body;
+  const { title, item_1, item_2, item_3 } = req.body;
   console.log(req.body);
   if (title && item_1 && item_2 && item_3) {
     console.log("all fields there");

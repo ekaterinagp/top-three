@@ -10,7 +10,7 @@ const Hello = (data) => {
            <body style="margin: 0; padding: 0;">
               <br />
               <br />
-              <div>Hello </div>
+              <div>Hello, it is very nice to hear from you</div>
               <br />
               <br />
            </body>

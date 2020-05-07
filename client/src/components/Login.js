@@ -1,11 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 import "../App.css";
-import { UserContext } from "../context/userContext";
 import Error from "./Error";
-import { InputGroup, FormControl } from "reactstrap";
-import { ConstraintViolationError } from "objection";
 
 export default function Login() {
   const [email, setEmail] = useState();

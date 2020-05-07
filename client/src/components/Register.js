@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
-import { UserContext } from "../context/userContext";
 import Error from "./Error";
 
 export default function Register() {
@@ -16,7 +15,6 @@ export default function Register() {
     token: "",
   });
 
-  // const { setUserData } = useContext(UserContext);
   const history = useHistory();
 
   const submit = async (e) => {
@@ -81,11 +79,7 @@ export default function Register() {
           onChange={(e) => setPasswordCheck(e.target.value)}
         />
 
-        <input
-          // className="example_b"
-          type="submit"
-          value="Register"
-        />
+        <input type="submit" value="Register" />
       </form>
     </div>
   );

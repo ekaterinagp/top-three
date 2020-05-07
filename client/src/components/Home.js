@@ -2,13 +2,8 @@ import React, { useEffect, useState, useReducer } from "react";
 import axios from "axios";
 import { Badge } from "reactstrap";
 
-import Articles from "../containers/Articles";
-
-import AddArticle from "./AddArticle";
-
-// const initialState = {
-//   articles: [],
-// };
+import Lists from "./Lists";
+import AddList from "./AddList";
 
 export default function Home() {
   const [userData, setUserData] = useState({
@@ -17,19 +12,19 @@ export default function Home() {
     email: "",
   });
 
-  const [articles, setArticles] = useState([]);
-  const loading = articles.length === 0;
+  const [lists, setLists] = useState([]);
+  const loading = lists.length === 0;
 
   useEffect(() => console.log(userData), [userData]);
 
-  const fetchArticles = async (e) => {
-    setArticles([]);
-    console.log("calling fetch from parent");
+  const fetchLists = async (e) => {
+    setLists([]);
+
     let res = await axios.get("http://localhost:9090/list");
     console.log(res.data.response);
     if (res.data.response.length) {
-      setArticles({
-        articles: res.data.response.reverse(),
+      setLists({
+        lists: res.data.response.reverse(),
       });
     }
   };
@@ -40,7 +35,7 @@ export default function Home() {
       const res = await axios.get(`http://localhost:9090/user/${userId}`);
 
       console.log(res);
-      // console.log(res.data.user[0].first_name);
+
       if (res.data.user.length) {
         setUserData({
           name: res.data.user[0].first_name,
@@ -53,7 +48,7 @@ export default function Home() {
 
   useEffect(() => {
     fetchUser();
-    fetchArticles();
+    fetchLists();
   }, []);
 
   return (
@@ -64,7 +59,7 @@ export default function Home() {
             <h2 className="welcome-title">
               Welcome <br></br> {userData.name} {userData.lastName}
             </h2>
-            <AddArticle parentMethod={fetchArticles} />
+            <AddList parentMethod={fetchLists} />
           </>
         ) : (
           <h3>
@@ -74,7 +69,11 @@ export default function Home() {
           </h3>
         )}
       </div>
-      {loading ? <p>Loading...</p> : <Articles articles={articles} />}
+      {loading ? (
+        <p className="loading">Loading...</p>
+      ) : (
+        <Lists lists={lists} />
+      )}
     </div>
   );
 }

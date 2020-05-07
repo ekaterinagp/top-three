@@ -6,7 +6,6 @@ import React, {
   useRef,
   useImperativeHandle,
 } from "react";
-import { useFetch } from "../context/Hooks";
 
 import AddComment from "./AddComment";
 import axios from "axios";
@@ -63,9 +62,8 @@ export default function List({ match }) {
         <p>You should log in to read comments</p>
       ) : (
         <div>
-          {/* <p>This is list # {params.listId}</p> */}
           {loading ? (
-            "Loading..."
+            <p className="loading">Loading...</p>
           ) : (
             <div>
               <div key={`random-${data.id}`} className="list-div">
